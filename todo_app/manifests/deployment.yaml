@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: kuroniil2/todo-app:latest
+          image: kuroniil2/todo-app:1.0
