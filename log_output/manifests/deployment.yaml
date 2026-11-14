@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: log-output
-          image: kuroniil2/log_output:latest
+          image: kuroniil2/log_output:6.0
