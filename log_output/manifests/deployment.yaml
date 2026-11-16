@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: random-string
+          emptyDir: {}
       containers:
         - name: log-output
-          image: kuroniil2/log_output:6.0
+          image: kuroniil2/log_output:9.0
+          volumeMounts:
+            - name: random-string
+              mountPath: /usr/src/app/files
+        - name: generate-string
+          image: kuroniil2/generate-string:4.0
+          volumeMounts:
+            - name: random-string
+              mountPath: /usr/src/app/files
