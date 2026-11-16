@@ -15,12 +15,18 @@ spec:
       volumes:
         - name: random-string
           emptyDir: {}
+        - name: pong-counter
+          persistentVolumeClaim:
+            claimName: log-pong-claim
       containers:
         - name: log-output
-          image: kuroniil2/log_output:9.0
+          image: kuroniil2/log_output:11.0
           volumeMounts:
             - name: random-string
               mountPath: /usr/src/app/files
+            - name: pong-counter
+              mountPath: /usr/src/app/counter
+
         - name: generate-string
           image: kuroniil2/generate-string:4.0
           volumeMounts:

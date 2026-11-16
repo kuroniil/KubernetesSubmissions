@@ -5,8 +5,9 @@ dotenv.config();
 const app = express();
 
 app.get("/", (request, response) => {
-  const line = readFileSync("/usr/src/app/files/data.txt", "utf8");
-  response.send(line);
+  const randString = readFileSync("/usr/src/app/files/data.txt", "utf8");
+  const counter = readFileSync("/usr/src/app/counter/counter.txt", "utf8");
+  response.send(randString + "\n" + `Ping / Pongs: ${counter}`);
 });
 
 const PORT = process.env.PORT || 3000;
