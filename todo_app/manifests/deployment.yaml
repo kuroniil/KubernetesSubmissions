@@ -18,7 +18,7 @@ spec:
             claimName: image-claim
       containers:
         - name: todo-app
-          image: kuroniil2/todo-app:6.0
+          image: kuroniil2/todo-app:12.0
           volumeMounts:
             - name: image
               mountPath: /usr/src/app/files

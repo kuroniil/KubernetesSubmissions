@@ -1,9 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 const app = express();
 
+const distPath = path.join(__dirname, "frontend/dist");
+
 app.use("/files", express.static("/usr/src/app/files"));
+
+app.use(express.static(distPath));
 
 async function getImage(override) {
   if (!override && fs.existsSync("/usr/src/app/files/image.jpg")) {
@@ -16,13 +21,8 @@ async function getImage(override) {
   fs.writeFileSync("/usr/src/app/files/image.jpg", buffer);
 }
 
-app.get("/", (request, response) => {
-  response.send(`
-    <div>
-      <h1>Todo app</h1>
-      <img src="/files/image.jpg" />
-    </div>
-    `);
+app.get("/", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
 });
 
 getImage(false);
