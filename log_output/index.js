@@ -4,9 +4,10 @@ import { readFileSync } from "node:fs";
 dotenv.config();
 const app = express();
 
-app.get("/", (request, response) => {
+app.get("/", async (request, response) => {
   const randString = readFileSync("/usr/src/app/files/data.txt", "utf8");
-  const counter = readFileSync("/usr/src/app/counter/counter.txt", "utf8");
+  const res = await fetch("http://ping-pong-app-svc:2346/pings");
+  const counter = await res.text();
   response.send(randString + "\n" + `Ping / Pongs: ${counter}`);
 });
 

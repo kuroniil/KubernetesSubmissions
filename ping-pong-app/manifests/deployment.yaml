@@ -12,13 +12,6 @@ spec:
       labels:
         app: ping-pong-app
     spec:
-      volumes:
-        - name: pong-counter
-          persistentVolumeClaim:
-            claimName: log-pong-claim
       containers:
         - name: ping-pong-app
-          image: kuroniil2/ping-pong-app:6.0
-          volumeMounts:
-            - name: pong-counter
-              mountPath: /usr/src/app/counter
+          image: kuroniil2/ping-pong-app:7.0
