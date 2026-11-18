@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: exercises
   name: log-pong-claim
 spec:
   storageClassName: pong-pv # this is the name of the persistent volume we are claiming
