@@ -37,3 +37,5 @@
 [2.2.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.2/todo_app)
 
 [2.3.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.3/log_output)
+
+[2.4.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.4/todo_app)
