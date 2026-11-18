@@ -35,3 +35,5 @@
 [2.1.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.1/ping-pong-app)
 
 [2.2.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.2/todo_app)
+
+[2.3.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.3/log_output)
