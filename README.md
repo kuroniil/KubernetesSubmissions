@@ -33,3 +33,5 @@
 ### Chapter 3
 
 [2.1.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.1/ping-pong-app)
+
+[2.2.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.2/todo_app)
