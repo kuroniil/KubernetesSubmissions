@@ -14,7 +14,7 @@ async function getImage(override) {
   if (!override && fs.existsSync("/usr/src/app/files/image.jpg")) {
     return;
   }
-  const response = await fetch("https://picsum.photos/1200");
+  const response = await fetch(process.env.IMAGE_API_URL);
 
   const buffer = Buffer.from(await response.arrayBuffer());
 
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 getImage(false);
 setInterval(() => getImage(true), 600000);
 
-const PORT = process.env.PORT || 3001;
+const PORT = parseInt(process.env.APP_PORT);
 app.listen(PORT, () => {
   console.log(`Server started in port ${PORT}`);
 });

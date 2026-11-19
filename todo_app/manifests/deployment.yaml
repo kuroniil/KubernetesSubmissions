@@ -19,7 +19,18 @@ spec:
             claimName: image-claim
       containers:
         - name: todo-app
-          image: kuroniil2/todo-app:23.0
+          image: kuroniil2/todo-app:24.0
           volumeMounts:
             - name: image
               mountPath: /usr/src/app/files
+          env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-config
+                  key: APP_PORT
+            - name: IMAGE_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-config
+                  key: IMAGE_API_URL

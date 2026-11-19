@@ -15,4 +15,10 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: kuroniil2/todo-backend:2.0
+          image: kuroniil2/todo-backend:3.0
+          env:
+            - name: BACKEND_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-config
+                  key: BACKEND_PORT

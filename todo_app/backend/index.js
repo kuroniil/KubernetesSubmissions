@@ -21,7 +21,7 @@ app.post("/todos", (req, res) => {
   res.json(newTodo);
 });
 
-const PORT = process.env.PORT || 3003;
+const PORT = parseInt(process.env.BACKEND_PORT);
 app.listen(PORT, () => {
   console.log(`Server started in port ${PORT}`);
 });
