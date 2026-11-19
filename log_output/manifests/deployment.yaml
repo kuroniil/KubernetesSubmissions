@@ -14,14 +14,25 @@ spec:
         app: log-output
     spec:
       volumes:
+        - name: config-volume
+          configMap:
+            name: log-output-config
         - name: random-string
           emptyDir: {}
       containers:
         - name: log-output
-          image: kuroniil2/log_output:18.0
+          image: kuroniil2/log_output:20.0
           volumeMounts:
             - name: random-string
               mountPath: /usr/src/app/files
+            - name: config-volume
+              mountPath: /etc/config
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: MESSAGE
         - name: generate-string
           image: kuroniil2/generate-string:4.0
           volumeMounts:

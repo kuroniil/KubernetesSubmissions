@@ -6,9 +6,16 @@ const app = express();
 
 app.get("/", async (request, response) => {
   const randString = readFileSync("/usr/src/app/files/data.txt", "utf8");
+  const fileContent = readFileSync("/etc/config/information.txt", "utf8");
   const res = await fetch("http://ping-pong-app-svc:2346/pings");
   const counter = await res.text();
-  response.send(randString + "\n" + `Ping / Pongs: ${counter}`);
+  response.send(`
+    <pre>
+      file content: ${fileContent}
+      env variable: ${process.env.MESSAGE}
+      ${randString}
+      Ping / Pongs: ${counter}
+    </pre>`);
 });
 
 const PORT = process.env.PORT || 3000;

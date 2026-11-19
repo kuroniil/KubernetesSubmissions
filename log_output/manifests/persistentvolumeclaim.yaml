@@ -4,7 +4,7 @@ metadata:
   namespace: exercises
   name: log-pong-claim
 spec:
-  storageClassName: pong-pv # this is the name of the persistent volume we are claiming
+  storageClassName: test-pv # this is the name of the persistent volume we are claiming
   accessModes:
     - ReadWriteOnce
   resources:
