@@ -15,10 +15,15 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: kuroniil2/todo-backend:3.0
+          image: kuroniil2/todo-backend:9.0
           env:
             - name: BACKEND_PORT
               valueFrom:
                 configMapKeyRef:
                   name: todo-app-config
                   key: BACKEND_PORT
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-db-url
+                  key: DB_URL

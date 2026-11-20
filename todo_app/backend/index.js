@@ -1,27 +1,52 @@
 require("dotenv").config();
 const express = require("express");
+const { Sequelize, QueryTypes } = require("sequelize");
 
-const app = express();
+async function main() {
+  const app = express();
 
-app.use(express.json());
+  app.use(express.json());
+  const sequelize = new Sequelize(process.env.DB_URL);
 
-const todos = [
-  { id: 0, content: "Learn Kubernetes basics" },
-  { id: 1, content: "Deploy an application to cluster" },
-  { id: 2, content: "Configure persistent volumes" },
-];
+  await sequelize.authenticate();
 
-app.get("/todos", (req, res) => {
-  res.json(todos);
-});
+  try {
+    await sequelize.query("SELECT * FROM todos");
+  } catch (error) {
+    await sequelize.query(
+      "CREATE TABLE todos (id SERIAL PRIMARY KEY, content TEXT)",
+    );
+    await sequelize.query(
+      "INSERT INTO todos (content) values ('Learn Kubernetes basics')",
+    );
+    await sequelize.query(
+      "INSERT INTO todos (content) values ('Deploy an application to cluster')",
+    );
+    await sequelize.query(
+      "INSERT INTO todos (content) values ('Configure persistent volumes')",
+    );
+  }
 
-app.post("/todos", (req, res) => {
-  const newTodo = { ...req.body, id: 1000000 * Math.random() };
-  todos.push(newTodo);
-  res.json(newTodo);
-});
+  app.get("/todos", async (req, res) => {
+    const todos = await sequelize.query("SELECT * FROM todos", {
+      type: QueryTypes.SELECT,
+    });
+    res.json(todos);
+  });
 
-const PORT = parseInt(process.env.BACKEND_PORT);
-app.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
-});
+  app.post("/todos", async (req, res) => {
+    // sql injection here? XD
+    const newTodo = await sequelize.query(
+      `INSERT INTO todos (content) values ('${req.body.content}') RETURNING *`,
+      { type: QueryTypes.INSERT },
+    );
+    res.json(newTodo[0]);
+  });
+
+  const PORT = parseInt(process.env.BACKEND_PORT);
+  app.listen(PORT, () => {
+    console.log(`Server started in port ${PORT}`);
+  });
+}
+
+main();
