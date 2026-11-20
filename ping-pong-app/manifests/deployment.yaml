@@ -15,4 +15,4 @@ spec:
     spec:
       containers:
         - name: ping-pong-app
-          image: kuroniil2/ping-pong-app:7.0
+          image: kuroniil2/ping-pong-app:12.0
