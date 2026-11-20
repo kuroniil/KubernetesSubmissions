@@ -47,3 +47,6 @@
 [2.7.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.7/ping-pong-app)
 
 [2.8.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.8/todo_app)
+
+[2.9.](https://github.com/kuroniil/KubernetesSubmissions/tree/2.9/todo_app)
+
