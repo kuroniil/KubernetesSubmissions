@@ -35,12 +35,18 @@ async function main() {
   });
 
   app.post("/todos", async (req, res) => {
-    // sql injection here? XD
-    const newTodo = await sequelize.query(
-      `INSERT INTO todos (content) values ('${req.body.content}') RETURNING *`,
-      { type: QueryTypes.INSERT },
-    );
-    res.json(newTodo[0]);
+    const newTodoContent = req.body.content;
+    if (newTodoContent.length > 140) {
+      console.log("New todo blocked");
+      res.status(400).json({ message: "Todo content too long" });
+    } else {
+      // sql injection here? XD
+      const newTodo = await sequelize.query(
+        `INSERT INTO todos (content) values ('${newTodoContent}') RETURNING *`,
+        { type: QueryTypes.INSERT },
+      );
+      res.json(newTodo[0]);
+    }
   });
 
   const PORT = parseInt(process.env.BACKEND_PORT);

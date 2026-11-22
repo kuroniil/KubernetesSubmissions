@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: kuroniil2/todo-backend:9.0
+          image: kuroniil2/todo-backend:10.0
           env:
             - name: BACKEND_PORT
               valueFrom:
