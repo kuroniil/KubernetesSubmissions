@@ -17,7 +17,7 @@ try {
   await sequelize.query("INSERT INTO counter (id, value) values (1, 1)");
 }
 
-app.get("/pingpong", async (request, response) => {
+app.get("/", async (request, response) => {
   await sequelize.query("UPDATE counter SET value = value + 1 WHERE id = 1");
   counter = await sequelize.query("SELECT value FROM counter WHERE id = 1", {
     type: QueryTypes.SELECT,
@@ -30,10 +30,6 @@ app.get("/pings", async (request, response) => {
     type: QueryTypes.SELECT,
   });
   response.send(`${counter[0].value}`);
-});
-
-app.get("/", async (request, response) => {
-  response.status(200).end();
 });
 
 const PORT = process.env.PORT || 3002;
