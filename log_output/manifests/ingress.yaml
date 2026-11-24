@@ -20,4 +20,4 @@ spec:
               service:
                 name: ping-pong-app-svc
                 port:
-                  number: 2346
+                  number: 80

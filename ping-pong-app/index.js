@@ -32,6 +32,10 @@ app.get("/pings", async (request, response) => {
   response.send(`${counter[0].value}`);
 });
 
+app.get("/", async (request, response) => {
+  response.status(200).end();
+});
+
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {

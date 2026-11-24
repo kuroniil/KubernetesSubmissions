@@ -21,7 +21,7 @@ spec:
           emptyDir: {}
       containers:
         - name: log-output
-          image: kuroniil2/log_output:20.0
+          image: kuroniil2/log_output:21.0
           volumeMounts:
             - name: random-string
               mountPath: /usr/src/app/files
