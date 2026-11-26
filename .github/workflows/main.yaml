@@ -13,8 +13,8 @@ env:
   GKE_ZONE: europe-north1-b
   REGISTRY: europe-north1-docker.pkg.dev
   REPOSITORY: my-repository
-  IMAGE: test-environment
-  SERVICE: test-environment
+  IMAGE: todo-app
+  SERVICE: todo-app
   BRANCH: ${{ github.ref_name }}
 
 jobs:
