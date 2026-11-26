@@ -5,7 +5,6 @@ images:
   - name: PROJECT/IMAGE
     newName: kuroniil2/todo_app
 resources:
-  - manifests/namespace.yaml
   - manifests/configmap.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
