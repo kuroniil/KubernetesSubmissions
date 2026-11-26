@@ -59,6 +59,11 @@ jobs:
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v3
 
+      - name: Decrypt secret yaml
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        run: sops -d todo_app/backend/manifests/secret.enc.yaml > todo_app/backend/manifests/secret.yaml
+
       - name: Deploy
         working-directory: todo_app
         run: |-
