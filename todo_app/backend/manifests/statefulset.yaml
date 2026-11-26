@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres-stset
+  namespace: project
 spec:
   serviceName: postgres-svc
   replicas: 1
@@ -29,7 +30,6 @@ spec:
         name: postgres-data-storage
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: local-path
         resources:
           requests:
             storage: 100Mi
@@ -38,6 +38,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres-svc
+  namespace: project
   labels:
     app: postgres
 spec:
