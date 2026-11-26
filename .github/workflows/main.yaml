@@ -59,6 +59,11 @@ jobs:
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v3
 
+      - name: Install sops
+        run: |
+          curl -LO https://github.com/getsops/sops/releases/download/v3.13.3/sops-v3.13.3.linux.amd64
+          sudo install -m 755 sops-v3.13.3.linux.amd64 /usr/local/bin/sops
+
       - name: Decrypt secret yaml
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
