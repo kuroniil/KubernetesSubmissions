@@ -19,7 +19,7 @@ env:
 
 jobs:
   build-publish-deploy:
-    if: github.event.name == 'push'
+    if: github.event_name == 'push'
     name: Build, Publish and Deploy
     runs-on: ubuntu-latest
     environment: test-environment
@@ -86,7 +86,7 @@ jobs:
           kubectl get services -o wide
 
   cleanup:
-    if: github.event.name == 'delete' && github.event.ref_type == 'branch'
+    if: github.event_name == 'delete' && github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
