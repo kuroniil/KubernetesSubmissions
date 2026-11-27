@@ -117,8 +117,7 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.event.ref }}
         run: |
-          NAMESPACE="${GITHUB_REF#refs/heads/}"
-
+          NAMESPACE="$BRANCH_NAME"
           if [ "$NAMESPACE" = "master" ]; then
             echo "Cannot delete master (project) namespace"
             exit 0
