@@ -88,6 +88,7 @@ jobs:
   cleanup:
     if: github.event_name == 'delete' && github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
+    environment: test-environment
     steps:
       - name: Checkout
         uses: actions/checkout@v6
