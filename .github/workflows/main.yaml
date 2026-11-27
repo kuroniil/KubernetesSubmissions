@@ -2,7 +2,7 @@ name: Release application
 
 on:
   push:
-
+  delete:
 permissions:
   contents: read
   id-token: write
@@ -19,6 +19,7 @@ env:
 
 jobs:
   build-publish-deploy:
+    if: github.event.name == "push"
     name: Build, Publish and Deploy
     runs-on: ubuntu-latest
     environment: test-environment
@@ -83,3 +84,43 @@ jobs:
           kustomize build . | kubectl apply -f -
           kubectl rollout status deployment $SERVICE -n ${NAMESPACE}
           kubectl get services -o wide
+
+  cleanup:
+    if: github.event.name == "delete" && github.event.ref_type == "branch"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "${{ secrets.SERVICE_ACCOUNT }}"
+
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: "Use gcloud CLI"
+        run: gcloud info
+
+      - run: gcloud --quiet auth configure-docker $REGISTRY
+
+      - name: "Get GKE credentials"
+        uses: "google-github-actions/get-gke-credentials@v3"
+        with:
+          cluster_name: "${{ env.GKE_CLUSTER }}"
+          project_id: "${{ env.PROJECT_ID }}"
+          location: "${{ env.GKE_ZONE }}"
+
+      - name: Delete namespace
+        env:
+          BRANCH_NAME: ${{ github.event.ref }}
+        run: |
+          NAMESPACE="${GITHUB_REF#refs/heads/}"
+
+          if [ "$NAMESPACE" = "master" ]; then
+            echo "Cannot delete master (project) namespace"
+            exit 0
+          fi
+
+          kubectl delete namespace "$NAMESPACE"
